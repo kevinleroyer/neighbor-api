@@ -1,9 +1,12 @@
-from rest_framework.views import APIView
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
+from rest_framework import viewsets
 
-from apps.api.serializers import UserSerializer
+from .serializers import UserSerializer
 
 
-class GetUsers(APIView):
-    queryset = User.objects.all()
+class UserViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users to be viewed or edited.
+    """
+    queryset = get_user_model().objects.all().order_by('-date_joined')
     serializer_class = UserSerializer

@@ -4,3 +4,4 @@ djangorestframework==3.9.0
 Markdown==3.0.1
 psycopg2==2.7.5
 pytz==2018.7
+six==1.11.0

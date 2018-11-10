@@ -25,7 +25,7 @@ SECRET_KEY = '1p)lq3=@=!2b7!&oj2qy*-s7jc@8$e+i#$gh0*#c0j$hvw+u68'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -39,6 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'rest_framework',
+
+    'apps.accounts',
+    'apps.api',
 ]
 
 MIDDLEWARE = [
@@ -130,3 +133,5 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
     ]
 }
+
+AUTH_USER_MODEL = 'accounts.User'
