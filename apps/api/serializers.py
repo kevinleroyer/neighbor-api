@@ -7,7 +7,7 @@ from apps.accounts.models import Skill, SkillsCategory
 class SkillSerializer(serializers.ModelSerializer):
     class Meta:
         model = Skill
-        fields = ('pk', 'title', 'thumbnail')
+        fields = ('id', 'title', 'thumbnail')
 
 
 class SkillsCategorySerializer(serializers.ModelSerializer):
