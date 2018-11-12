@@ -1,8 +1,9 @@
 from django.contrib.auth import get_user_model
 from rest_framework import viewsets
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
-from apps.accounts.models import Skill, SkillsCategory
+from apps.accounts.models import Skill, SkillsCategory, User
 from .serializers import UserSerializer, SkillSerializer, SkillsCategorySerializer
 
 
@@ -12,7 +13,6 @@ class SkillsCategoryViewSet(viewsets.ModelViewSet):
     """
     queryset = SkillsCategory.objects.all()
     serializer_class = SkillsCategorySerializer
-    permission_classes = (IsAuthenticated,)
 
 
 class SkillViewSet(viewsets.ModelViewSet):
@@ -21,7 +21,6 @@ class SkillViewSet(viewsets.ModelViewSet):
     """
     queryset = Skill.objects.all()
     serializer_class = SkillSerializer
-    permission_classes = (IsAuthenticated,)
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -30,4 +29,13 @@ class UserViewSet(viewsets.ModelViewSet):
     """
     queryset = get_user_model().objects.all()
     serializer_class = UserSerializer
-    permission_classes = (IsAuthenticated,)
+
+
+class UserSkillsViewSet(APIView):
+    """
+    API endpoint that allows users with a particular skill to be viewed.
+    """
+    def get(self, request, skill_id):
+        users = User.objects.filter(skills=skill_id)
+        serializer = UserSerializer(users, many=True)
+        return Response(serializer.data)
